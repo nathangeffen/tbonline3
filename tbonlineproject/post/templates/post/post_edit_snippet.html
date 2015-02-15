@@ -1,0 +1,9 @@
+{% load i18n %}
+
+{% if perms.post.change_basicpost %}
+        
+        <p>
+        <a href="{{ post.get_admin_url }}">{% trans "Edit" %}</a>
+        </p>    
+
+{% endif %}

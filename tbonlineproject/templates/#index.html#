@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+{% load feed %}
+
+{% block title %}{{block.super}} - Home{% endblock %}
+
+{% block content %}
+
+{% include "post/post_list_snippet.html" %}
+
+{% include "post/paginator_snippet.html" %}
+
+{% endblock %}
+
+

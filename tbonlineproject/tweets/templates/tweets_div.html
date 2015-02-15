@@ -1,0 +1,15 @@
+{% load i18n %}
+
+<div class="box" id="twitter">
+	<h2>{% trans "Latest Tweets" %}</h2>
+	{% for tweet in tweets|slice:"5" %}
+	<div class="tweet">
+	    <a href="http://twitter.com//{{ tweet.from_user}} "><img src="{{ tweet.profile_image_url }}" alt="" /></a>
+	    <p>{{ tweet.text|urlize }}<em><span>{{ tweet.created_at }}</span></em></p>
+	</div>
+	{%empty%}
+	<div class="tweet">
+	    <p>{% trans "There are currently no tweets recovered."%}</p>
+	</div>
+	{% endfor %}			
+</div>

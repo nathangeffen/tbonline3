@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load url from future %}
+
+{% load i18n %}
+
+{% block title %}{{block.super}} - {{story.title}}{% endblock %}
+
+{% block content %}
+
+{% include 'post/messages_snippet.html' %}
+
+<h1>{{story.title}}</h1>
+
+{{story.description|safe}}
+
+{% for orderedpost in story.orderedpost_set.all %}
+    
+    {% if orderedpost.post.is_published or not story.is_published %}
+        <h2><a href="{{orderedpost.get_absolute_url}}">{{ orderedpost.post.title }}</a></h2>
+        {{ orderedpost.post.teaser|safe }}
+    {% endif %}
+
+{% endfor %}
+
+{% endblock %}

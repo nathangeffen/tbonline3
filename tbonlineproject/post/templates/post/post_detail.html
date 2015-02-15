@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block title %}{{block.super}} - {{post.title}}{% endblock %}
+
+{% block content %}
+
+<div class="post-entry {{post.detail_post_css_classes}}">
+{% include 'post/messages_snippet.html' %}
+{% include 'post/post_edit_snippet.html' %}
+{% include post.get_post_detail_template %}
+</div>
+
+{% endblock %}
+
+{% block sidebar-1 %}
+    
+    <div id="post-meta">
+    {% include 'post/category_snippet.html' %}
+    {% include 'post/byline_snippet.html' %}
+    {% include 'post/dateline_snippet.html' %}
+    {% include 'post/last_updated_snippet.html' %}
+    {% include 'post/list_tags_snippet.html' %}    
+    {% include 'post/addtoany_snippet.html' %}    
+    </div>
+    
+    {% if comments_allowed != 'closed' %}
+        {% with notification_name="comment" notification_app_label='post' notification_model=post.get_class_name.lower notification_pk=post.pk %}
+            {% include 'notifications/notify_comments_snippet.html' %}
+        {% endwith %} 
+    {% endif %}
+    
+
+    {% with post as search_object %}
+        {% include 'relatedcontent/list_related_content_snippet.html' %}
+    {% endwith %}
+    {{block.super}}        
+{% endblock %}
+

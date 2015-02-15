@@ -1,0 +1,35 @@
+{% load i18n %}
+{% load comments %}
+
+<div class="post">
+    <h1><a href="#">{{ post.title }}</a></h1>
+    {% if post.subtitle %}
+    <h2>{{ post.subtitle }}</h2>
+    {% endif %}
+    <div class="intro">{{ post.get_introduction|safe }}</div>    
+    {% block media %}{% endblock %}
+
+    {% if post.pullout_text %}
+    {{post.pullout_text}}
+    {% endif %}
+    
+    {{post.get_body|safe}}
+</div>
+
+<div id="comments">
+    {% include 'post/comment_count_snippet.html' %} 
+</div>
+
+<div id="comments-section">
+    
+    {% include 'post/comments_snippet.html' %}
+    
+</div>
+
+{% if post.copyright %}
+    {% with post.copyright as copyright %}
+        <div id="copyright">
+            {% include 'copyright/copyright_snippet.html' %}
+        </div>
+    {% endwith %}
+{% endif %}

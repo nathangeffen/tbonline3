@@ -1,0 +1,59 @@
+{% extends "post/basicpost_detail_snippet.html" %}
+{% load url from future %}
+{% load fb_versions %}
+{% load i18n %}
+
+
+{% block media %}
+
+    <link rel="stylesheet" href="{{STATIC_URL}}anythingslider/css/anythingslider.css" type="text/css" media="screen" />
+
+    <script type="text/javascript" src="{{STATIC_URL}}jquery/jquery.min.js"></script>
+
+    <script type="text/javascript" src="{{STATIC_URL}}anythingslider/js/jquery.easing.1.2.js"></script>
+    <script src="{{STATIC_URL}}anythingslider/js/jquery.anythingslider.js" type="text/javascript" charset="utf-8"></script>
+
+
+
+             
+    <script type="text/javascript">
+        
+        $(function(){
+            $('#slider').anythingSlider({
+            
+            resizeContents : true,
+            width: 560,          
+            delay: 15000,   
+            animationTime: 600,
+            easing: "linear",
+                      
+            {{post.slideshow_options}}
+            
+            });
+        });
+
+   </script>
+
+            
+
+    <ul id="slider">
+        {% for image in post.gallery.get_images %}
+    
+            <li>
+                <div id="textSlide">
+                    <a href="{% url "image_view" image.id %}">                             
+                    {% with 'medium' as preferred_size %}
+                    <img src="{% include 'gallery/image_snippet.html' %}" 
+                    alt={{image.title}}/>
+                    {% endwith %}
+                    </a>
+                    <p class="slide-caption">{{image.caption|safe}}</p>
+                    <p class="slide-caption">{% trans "Credits: " %}{{image.get_credits}}</p>
+                    </p>                    
+                </div> 
+           </li>
+    
+        {% endfor %}
+    </ul>
+            
+{% endblock %}

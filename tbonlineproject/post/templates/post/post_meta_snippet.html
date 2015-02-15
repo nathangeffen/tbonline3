@@ -1,0 +1,23 @@
+{% load i18n %}
+{% load url from future %}
+{% load comments %}
+
+{% if post.date_published %}
+    <p class="post-meta">
+    {% if post.authors.all %}
+    {% trans "By "%}
+    {% for author in post.authors.all %}
+        <a href="{% url 'post_author_list' author.credit.id %}">{{ author }}</a>{% if not forloop.last %}, {% endif %}
+    {% endfor %}
+    <br />
+    {% endif %}
+    {% trans "Published: " %} {{ post.date_published }}&middot;
+    {% trans "Tags" %}:
+        {% for taggeditem in post.tags.all %}
+           <a href="/tags/{{ taggeditem.tag.name|urlencode }}">{{ taggeditem.tag }}</a>{% if not forloop.last %}, {% else %}&middot;{% endif %}
+        {% empty %}
+            {% trans "None" %}&middot;
+        {% endfor %}
+    {% get_comment_count for post as comment_count %}
+    <a href="{{ post.get_absolute_url }}#comments">{{comment_count}} {% trans "comment" %}{{ comment_count|pluralize }}</a>
+{% endif %}

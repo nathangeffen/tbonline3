@@ -1,0 +1,67 @@
+{% load url from future %}
+{% load comments %}
+{% load i18n %}
+{% load posttags %}
+
+{% block scripts %}
+<style>
+	.featured{
+		background:#FFE87C;
+	}
+	.last{
+		border-bottom: 2px solid;
+		margin-top:0;
+		margin-bottom:10px;
+	}
+	.lastFeatured{
+		margin-bottom:0;
+	}
+</style>
+{% endblock %}
+
+{% get_comment_count for post as comment_count %}
+{% if comment_count > 0 %}
+<p class="comment-meta">Comments in chronological order</p>
+{% endif %}
+
+{% get_comment_list for post as comment_list %}
+
+{% for comment in post|get_choice_comments %}
+	<div class="comment featured {% if forloop.last %}lastFeatured{% endif %}">
+		<p class="author"><strong>{{ comment.user_name }}</strong> wrote on {{ comment.submit_date }}</p>
+		<p>{{ comment.comment }}</p>
+	</div>
+	{% if forloop.last %}
+	<div class="last">&nbsp;</div>
+	{% endif %}
+{% endfor %}
+{% for comment in post|get_normal_comments %}
+	<div class="comment">
+		<p class="author"><strong>{{ comment.user_name }}</strong> wrote on {{ comment.submit_date }}</p>
+		<p>{{ comment.comment }}</p>
+	</div>
+{% endfor %}
+
+{% if comments_allowed == 'true' %}
+    <p id="invite-comment">{% trans "Please leave a comment." %}</p>
+    {% render_comment_form for post %}
+{% endif %}        
+
+
+{% if comments_allowed == "authenticate" %}
+    <p>
+    {% trans "Please" %}
+    <a href="{% url 'django.contrib.auth.views.login' %}?next={{post.get_absolute_url}}%23comment_form">
+    {% trans "login" %}</a>
+    {% trans "or" %}
+    <a href="{% url 'registration.views.register' %}?next={{post.get_absolute_url}}%23comment_form">            
+    {% trans "register" %}</a>
+    {% trans "to comment" %}.
+    </p>
+{% endif %}
+
+{% if comments_allowed == 'closed' %}
+    <p>{% trans "This article is closed for comments" %}.</p>
+{% endif %}
+
+

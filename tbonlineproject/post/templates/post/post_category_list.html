@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+
+{% block title %}{{block.super}} - Posts{% endblock %}
+
+{% block content %}
+
+<h2 id="category-name">{{category.name}}</h2>
+
+<div id="category-description">
+{{category.description|safe}}
+</div>
+
+{% include "post/post_list_snippet.html" %}
+
+{% include "post/paginator_snippet.html" %}
+
+{% endblock %}

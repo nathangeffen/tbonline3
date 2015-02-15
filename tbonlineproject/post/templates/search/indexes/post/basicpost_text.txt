@@ -1,0 +1,7 @@
+{{ object.title }}
+{{ object.subtitle }}
+{{ object.get_authors }}
+{{ object.get_teaser }}
+{{ object.get_introduction }}
+{{ object.get_body }}
+

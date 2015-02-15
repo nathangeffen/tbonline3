@@ -1,0 +1,7 @@
+{% load url from future %}
+{% load i18n %}
+{% load comments %}
+
+{% get_comment_count for post as comment_count %}
+<h2>{{ comment_count }} {% trans "comment" %}{{ comment_count|pluralize }}</h2>
+				

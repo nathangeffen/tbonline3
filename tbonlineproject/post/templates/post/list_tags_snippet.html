@@ -1,0 +1,12 @@
+{% load url from future %}
+{% load i18n %}
+
+<div id="tags">
+    <p>{% trans "Tags" %}:
+    {% for taggeditem in post.tags.all %}
+      <a href="/tags/{{ taggeditem.tag.name|urlencode }}">{{taggeditem.tag}}</a>{% if not forloop.last %}, {% endif %}
+    {% empty %}
+        {% trans "None" %}
+    {% endfor %} 
+    </p>
+</div>

@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{{ block.super }} - {% trans "Contact Form" %} {% endblock %}
+{% block content %}
+<h1>{% trans "Contact us" %}</h1>
+<p>{% trans "Send us an email using this contact form" %}.</p>
+<p>TB Online does not intend to offer medical advice, consultations, or treatment of any kind. If you or a loved one has a specific medical need or question, please contact a care provider or your national treatment program. If you are a clinician looking for advice for a case, please consult the ERS/WHO TB Consilium: https://www.tbconsilium.org/. TB Online does NOT sell or provide quotes for any medical devices; please do not contact us with requests related to purchasing GeneXpert or other TB diagnostic products.</p>
+<div id="contact-form">
+<form method="POST" action="" enctype="multipart/form-data">{% csrf_token %}
+{{ form.name.errors }}
+<p {% if form.name.field.required %}class="required"{% endif %}><label for="{{ form.name.auto_id }}">{{ form.name.label }}:</label><br /> {{ form.name }}</p>
+{{ form.email.errors }}
+<p {% if form.email.field.required %}class="required"{% endif %}><label for="{{ form.email.auto_id }}">{{ form.email.label }}:</label><br /> {{ form.email }}</p>
+{{ form.subject.errors }}
+<p {% if form.subject.field.required %}class="required"{% endif %}><label for="{{ form.subject.auto_id }}">{{ form.subject.label }}</label><br /> {{ form.subject }}</p>
+{{ form.body.errors }}
+<p {% if form.body.field.required %}class="required"{% endif %}><label for="{{ form.body.auto_id}}">{{ form.body.label }}</label><br />{{ form.body }}</p>
+{% if user.is_anonymous %}
+{{ form.recaptcha.errors }}
+<p {% if form.recaptcha.field.required %}class="required"{% endif %}><label for="{{ form.recaptcha.auto_id}}">{{ form.recaptcha.label }}</label><br />{{ form.recaptcha }}</p>
+{% endif %}
+<input type="submit" name="submit" class="btn" value="{% trans 'Send' %}" id="submit">
+</form>
+</div>
+{% endblock %}
+{% block sidebar-content %} {% endblock %}
