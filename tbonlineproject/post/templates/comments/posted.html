@@ -8,5 +8,7 @@
   {% if not comment.is_public %}
     <p>{% trans "Your comment has been queued for moderation" %}.</p>   
   {% endif %}
+<p>Thank you for your comment.</p> 
+<p>TBOnline is run by volunteers of the Global TB Community Advisory Board. If your comment contained a question we can answer, we will try to respond to your email within three working days.</p>
 <p><a href="{{ comment.get_absolute_url }}">{% trans "Return to the article you commented on" %}</a>
 {% endblock %}
