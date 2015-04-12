@@ -1,1 +1,1 @@
-TB Online Weekly News Digest
+{% load i18n %}[{{site.name}}] {% trans "Weekly News Digest" %}
