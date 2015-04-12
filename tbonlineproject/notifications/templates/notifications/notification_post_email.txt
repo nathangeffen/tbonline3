@@ -3,8 +3,9 @@
 
 Dear {% if user.get_full_name %}{{user.get_full_name}}{% else %}{{user}}{% endif %}
 
-{% trans "You have requested to be notified of new posts." %}
-{% trans "Here is a summary of the new posts since " %} {{notification.last_executed}} 
+You have subscribed to receive TB Online’s weekly news digest.
+
+Here is a summary of the new posts since {{notification.last_executed}}.
 
 ***************************************************************
 

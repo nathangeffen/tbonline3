@@ -1,1 +1,1 @@
-{% load i18n %}{% trans "Account activation on" %} {{ site.name }}
+Confirm your subscription to TB Online's weekly news digest

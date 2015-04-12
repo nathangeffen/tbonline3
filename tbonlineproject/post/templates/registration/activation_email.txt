@@ -1,6 +1,7 @@
-{% load i18n %}
-{% trans "Activate account at" %} {{ site.name }}:
+To confirm your subscription to TB Online's weekly news digest, please click the following link:
 
 http://{{ site.domain }}{% url registration_activate activation_key %}
 
-{% blocktrans %}Link is valid for {{ expiration_days }} days.{% endblocktrans %}
+The link will be valid for two days.
+
+
