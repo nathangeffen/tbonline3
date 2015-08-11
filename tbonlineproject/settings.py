@@ -4,7 +4,7 @@
 import os
 
 try:
-    from local_settings import APP_NAME, COMMENTS_APP    
+    from local_settings import APP_NAME, COMMENTS_APP
 except ImportError:
     APP_NAME = "tb"
     COMMENTS_APP = "CommentRecaptcha"
@@ -256,7 +256,7 @@ LOGGING = {
 
 try:
     import local_settings
-    from local_settings import *          
+    from local_settings import *
 except ImportError:
     pass
 else: 

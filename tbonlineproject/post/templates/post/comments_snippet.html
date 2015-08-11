@@ -19,49 +19,64 @@
 </style>
 {% endblock %}
 
-{% get_comment_count for post as comment_count %}
-{% if comment_count > 0 %}
-<p class="comment-meta">Comments in chronological order</p>
-{% endif %}
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+{#  TODO: Change shortname to clients credentials  #}
+    var disqus_shortname = 'tbonlinetest';
 
-{% get_comment_list for post as comment_list %}
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
 
-{% for comment in post|get_choice_comments %}
-	<div class="comment featured {% if forloop.last %}lastFeatured{% endif %}">
-		<p class="author"><strong>{{ comment.user_name }}</strong> wrote on {{ comment.submit_date }}</p>
-		<p>{{ comment.comment }}</p>
-	</div>
-	{% if forloop.last %}
-	<div class="last">&nbsp;</div>
-	{% endif %}
-{% endfor %}
-{% for comment in post|get_normal_comments %}
-	<div class="comment">
-		<p class="author"><strong>{{ comment.user_name }}</strong> wrote on {{ comment.submit_date }}</p>
-		<p>{{ comment.comment }}</p>
-	</div>
-{% endfor %}
-
-{% if comments_allowed == 'true' %}
-    <p id="invite-comment">{% trans "Please leave a comment." %}</p>
-    {% render_comment_form for post %}
-{% endif %}        
-
-
-{% if comments_allowed == "authenticate" %}
-    <p>
-    {% trans "Please" %}
-    <a href="{% url 'django.contrib.auth.views.login' %}?next={{post.get_absolute_url}}%23comment_form">
-    {% trans "login" %}</a>
-    {% trans "or" %}
-    <a href="{% url 'registration.views.register' %}?next={{post.get_absolute_url}}%23comment_form">            
-    {% trans "register" %}</a>
-    {% trans "to comment" %}.
-    </p>
-{% endif %}
-
-{% if comments_allowed == 'closed' %}
-    <p>{% trans "This article is closed for comments" %}.</p>
-{% endif %}
+{#{% get_comment_count for post as comment_count %}#}
+{#{% if comment_count > 0 %}#}
+{#<p class="comment-meta">Comments in chronological order</p>#}
+{#{% endif %}#}
+{##}
+{#{% get_comment_list for post as comment_list %}#}
+{##}
+{#{% for comment in post|get_choice_comments %}#}
+{#	<div class="comment featured {% if forloop.last %}lastFeatured{% endif %}">#}
+{#		<p class="author"><strong>{{ comment.user_name }}</strong> wrote on {{ comment.submit_date }}</p>#}
+{#		<p>{{ comment.comment }}</p>#}
+{#	</div>#}
+{#	{% if forloop.last %}#}
+{#	<div class="last">&nbsp;</div>#}
+{#	{% endif %}#}
+{#{% endfor %}#}
+{#{% for comment in post|get_normal_comments %}#}
+{#	<div class="comment">#}
+{#		<p class="author"><strong>{{ comment.user_name }}</strong> wrote on {{ comment.submit_date }}</p>#}
+{#		<p>{{ comment.comment }}</p>#}
+{#	</div>#}
+{#{% endfor %}#}
+{##}
+{#{% if comments_allowed == 'true' %}#}
+{#    <p id="invite-comment">{% trans "Please leave a comment." %}</p>#}
+{#    {% render_comment_form for post %}#}
+{#{% endif %}        #}
+{##}
+{##}
+{#{% if comments_allowed == "authenticate" %}#}
+{#    <p>#}
+{#    {% trans "Please" %}#}
+{#    <a href="{% url 'django.contrib.auth.views.login' %}?next={{post.get_absolute_url}}%23comment_form">#}
+{#    {% trans "login" %}</a>#}
+{#    {% trans "or" %}#}
+{#    <a href="{% url 'registration.views.register' %}?next={{post.get_absolute_url}}%23comment_form">            #}
+{#    {% trans "register" %}</a>#}
+{#    {% trans "to comment" %}.#}
+{#    </p>#}
+{#{% endif %}#}
+{##}
+{#{% if comments_allowed == 'closed' %}#}
+{#    <p>{% trans "This article is closed for comments" %}.</p>#}
+{#{% endif %}#}
 
 

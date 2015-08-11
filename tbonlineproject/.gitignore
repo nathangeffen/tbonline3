@@ -1,0 +1,4 @@
+*.pyc
+.idea/
+tbonline.sqlite
+tbonline_local.sqlite

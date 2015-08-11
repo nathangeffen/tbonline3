@@ -227,7 +227,11 @@ class EnhancedTextField(models.Field):
     def get_db_prep_value(self, value, connection, prepared=False):
         if value is None:
             return None
-        return value.to_string()
+
+        try:
+            return value.to_string()
+        except:
+            return value
 
     def formfield(self, **kwargs):
         """Specify the form and widget for the EnhancedTextField.
