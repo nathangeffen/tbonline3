@@ -9,3 +9,6 @@ class UserProfile(models.Model):
                                blank=True,)
     date_of_birth = models.DateField(null=True,blank=True)
     website = models.URLField(null=True,blank=True)
+
+    def __unicode__(self):
+        return str(self.user) + ' : ' + str(self.user.first_name) + str(self.user.last_name)

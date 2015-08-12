@@ -2,8 +2,18 @@
 '''
 from django.contrib import admin
 
-from notifications.models import Notification, CommentNotification, Recipient
+from models import Notification, CommentNotification, Recipient
 
-admin.site.register(Notification)
+
+class NotificationRecipientInline(admin.TabularInline):
+    model = Recipient
+
+
+class NotificationAdmin(admin.ModelAdmin):
+    inlines = [
+        NotificationRecipientInline,
+    ]
+
+admin.site.register(Notification, NotificationAdmin)
 admin.site.register(CommentNotification)
 admin.site.register(Recipient)

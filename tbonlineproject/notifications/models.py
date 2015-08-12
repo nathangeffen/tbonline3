@@ -14,6 +14,7 @@ from model_utils.managers import InheritanceManager
 
 from post.models import BasicPost
 
+
 class AlreadyNotifiedError(Exception):
     """Exception raised when trying to add an existing user to a notification 
 
@@ -26,6 +27,7 @@ class AlreadyNotifiedError(Exception):
 
     def __unicode__(self):
         return self.msg
+
 
 class NotificationManager(InheritanceManager):
     def active(self):
@@ -55,17 +57,19 @@ class Notification(models.Model):
         try:
             self = NotificationClass.objects.get(name=name)
         
-            # Make Notification it active if it is inactive
-            if self.active == False:
+            # Make Notification active if it is inactive
+            if not self.active:
                 self.active = True
                 self.save()
         
         except PostNotification.DoesNotExist:
             self = NotificationClass.objects.create(name=name,
-                                        last_executed=datetime.now())
+                                                    last_executed=datetime.now())
         finally:
             # Add Recipient user.
-            try:  
+            try:
+                print self
+                print user
                 Recipient.objects.create(notification=self, user=user)
             except IntegrityError:
                 raise AlreadyNotifiedError(ugettext('%s already gets notified of new comments on this item.' % user))
@@ -87,10 +91,9 @@ class Notification(models.Model):
             return True
         except Recipient.DoesNotExist:
             return False
-        
     
     def __unicode__(self):
-        return self.__class__.__name__ + ugettext(' ') + unicode(self.last_executed)
+        return self.name + ugettext(' ') + unicode(self.last_executed)
     
     class Meta:
         ordering = ('last_modified',)
@@ -104,7 +107,7 @@ class Recipient(models.Model):
     date_added = models.DateTimeField(auto_now_add=True, editable=False)    
     
     def __unicode__(self):
-        return unicode(self.notification) + ugettext(' - ') + self.user.username
+        return unicode(self.notification.name) + ugettext(' - ') + self.user.username + ' - ' + self.user.first_name +' '+ self.user.last_name
 
     class Meta:
         ordering = ('notification','user',)
@@ -119,6 +122,7 @@ class PostNotification(Notification):
     def querydef(self):
         return BasicPost.objects.published().\
             filter(date_published__gte=self.last_executed).select_subclasses()
+
 
 class CommentNotification(Notification):
     linked_content_type = models.ForeignKey(ContentType)
@@ -141,8 +145,8 @@ class CommentNotification(Notification):
 
         try:
             self = CommentNotification.objects.get(name=name,
-                                linked_content_type=ct,
-                                linked_object_id=int(pk))
+                                                   linked_content_type=ct,
+                                                   linked_object_id=int(pk))
 
             # Make Notification it active if it is inactive
             if self.active == False:
@@ -153,9 +157,9 @@ class CommentNotification(Notification):
             # Add the notification since it does not exist
 
             self = CommentNotification.objects.create(name='comment',
-                                        linked_content_type=ct,
-                                        linked_object_id=pk,
-                                        last_executed=datetime.now())                
+                                                      linked_content_type=ct,
+                                                      linked_object_id=pk,
+                                                      last_executed=datetime.now())
         finally:
             # Add Recipient user.
             try:  
@@ -169,8 +173,8 @@ class CommentNotification(Notification):
         ct = ContentType.objects.get(app_label=app_label, model=model)
         try:
             self = CommentNotification.objects.get(name='comment',
-                                linked_content_type=ct,
-                                linked_object_id=pk)
+                                                   linked_content_type=ct,
+                                                   linked_object_id=pk)
         except CommentNotification.DoesNotExist:
             pass
         
@@ -178,11 +182,10 @@ class CommentNotification(Notification):
             
     def querydef(self):
         return Comment.objects.filter(content_type=self.linked_content_type, 
-                               object_pk=self.linked_object_id, 
-                               submit_date__gt=self.last_executed,
-                               is_public=True,
-                               is_removed=False)
-
+                                      object_pk=self.linked_object_id,
+                                      submit_date__gt=self.last_executed,
+                                      is_public=True,
+                                      is_removed=False)
                 
     def get_context_data(self):
         context = {}
@@ -194,8 +197,8 @@ class CommentNotification(Notification):
         try:
             ct = ContentType.objects.get_for_model(obj)
             self = CommentNotification.objects.get(name=name,
-                                linked_content_type=ct,
-                                linked_object_id=obj.pk)
+                                                   linked_content_type=ct,
+                                                   linked_object_id=obj.pk)
             Recipient.objects.get(notification__pk=self.pk, user=user)
             return True
         except (CommentNotification.DoesNotExist, Recipient.DoesNotExist):
@@ -203,4 +206,3 @@ class CommentNotification(Notification):
     
     class Meta:
         unique_together = ('linked_content_type', 'linked_object_id')
-    

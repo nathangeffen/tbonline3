@@ -10,7 +10,8 @@ from django.utils.translation import ugettext as _
 from django.conf import settings
 from django.core.validators import email_re
 
-from notifications.models import Notification, Recipient
+from models import Notification, Recipient
+
 
 def is_valid_email(email):
     return True if email_re.match(email) else False
@@ -57,7 +58,6 @@ class Command(BaseCommand):
                         context['objects'].append(o)
                     else:
                         context['objects'] = [o]
-                                        
 
                 context['user'] = r.user
                 if is_valid_email(r.user.email) and context['objects']:
@@ -76,7 +76,7 @@ class Command(BaseCommand):
                 notification.last_executed = execution_time
                 notification.save()
                 sys.stdout.write('Notification %s execution time %s written to database\n'
-                                  % (unicode(notification), unicode(execution_time)))
+                                 % (unicode(notification), unicode(execution_time)))
             
         sys.stdout.write("Total emails processed: %d\n" % total_emails_processed)
         
@@ -96,8 +96,8 @@ class Command(BaseCommand):
             if notification.subject_template:
                 t = loader.get_template(notification.subject_template)
             else:
-                t  = loader.get_template('notifications/notification_'+ 
-                                        notification.name.lower() +'_subject.txt')
+                t = loader.get_template('notifications/notification_' +
+                                        notification.name.lower() + '_subject.txt')
             
             c = Context(context)
             subject = t.render(c)
@@ -105,12 +105,10 @@ class Command(BaseCommand):
             if notification.body_template:
                 t = loader.get_template(notification.body_template)
             else:  
-                t = loader.get_template('notifications/notification_'+ 
-                                        notification.name.lower() +'_email.txt')
+                t = loader.get_template('notifications/notification_' +
+                                        notification.name.lower() + '_email.txt')
 
             c = Context(context)
             body = t.render(c)
             
             send_mail(subject, body, from_email, [to_email], fail_silently=False)
-                
-            

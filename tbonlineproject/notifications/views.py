@@ -43,7 +43,7 @@ def notify_post(request):
     except:
         name = 'post'
     
-    return notify(request, PostNotification, name)    
+    return notify(request, PostNotification, name)
 
 def notify_comment(request):
     '''Process notification request, typically after user submits form requesting to be
