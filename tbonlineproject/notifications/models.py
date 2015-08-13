@@ -9,8 +9,11 @@ from django.contrib.auth.models import User
 from django.contrib.comments.models import Comment
 from django.contrib.contenttypes import generic
 from django.db import IntegrityError
+from django.conf import settings
 
 from model_utils.managers import InheritanceManager
+from utils import get_mailchimp_api
+import mailchimp
 
 from post.models import BasicPost
 
@@ -69,7 +72,12 @@ class Notification(models.Model):
             # Add Recipient user.
             try:
                 print self
-                print user
+                print user.email
+
+                mailchip_client = get_mailchimp_api()
+
+                mailchip_client.lists.subscribe(settings.LIST_ID, {'email': user.email})
+
                 Recipient.objects.create(notification=self, user=user)
             except IntegrityError:
                 raise AlreadyNotifiedError(ugettext('%s already gets notified of new comments on this item.' % user))
@@ -77,6 +85,10 @@ class Notification(models.Model):
         return self
 
     def remove_user(self, user, *args):
+        mailchip_client = get_mailchimp_api()
+
+        mailchip_client.lists.unsubscribe(settings.LIST_ID, {'email': user.email})
+
         Recipient.objects.filter(notification=self, user__username=user).delete()
 
     def get_context_data(self):

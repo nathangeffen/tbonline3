@@ -253,6 +253,9 @@ LOGGING = {
     }
 }
 
+# Mailchimp settings
+MAILCHIMP_KEY = 'ba62b7f0b188051d29344063caba744b-us11'
+LIST_ID = 'ae7bcd30bb'
 
 try:
     import local_settings

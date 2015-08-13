@@ -7,7 +7,7 @@ from notifications.models import CommentNotification, PostNotification, AlreadyN
 
 def notify(request, NotificationType, name,
            login_msg=_('You need to login to receive notifications.'),
-           success_msg=_("You will receive emails alerting you to new posts."), 
+           success_msg=_("You will receive emails alerting you to new posts. But first you must confirm your subscription via email."),
            already_msg=_("You already receive notifications for new posts"),
            *args):
     '''Common method for processing different types of notification view. 
