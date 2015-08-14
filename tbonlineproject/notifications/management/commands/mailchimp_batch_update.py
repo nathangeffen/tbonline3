@@ -9,13 +9,6 @@ from notifications.models import Recipient
 import mailchimp
 
 
-# class Email(object):
-#     email = ''
-#
-#     def __init__(self, email):
-#         self.email = email
-
-
 class Command(BaseCommand):
     help = 'executes a batch update to mailchimp with all current active users'
 
@@ -30,7 +23,6 @@ class Command(BaseCommand):
             else:
                 pass
         for email in recipients_list:
-            # recipient = Email(email)
             batch.append({'email': {'email': email}})
 
         for obj in batch:
