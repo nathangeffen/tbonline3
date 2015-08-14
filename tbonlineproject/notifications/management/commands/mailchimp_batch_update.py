@@ -31,10 +31,10 @@ class Command(BaseCommand):
                 pass
         for email in recipients_list:
             # recipient = Email(email)
-            batch.append({'email': email})
+            batch.append({'email': {'email': email}})
 
         for obj in batch:
-            print obj['email']
+            print obj['email']['email']
 
         mailchip_client = get_mailchimp_api()
         results = mailchip_client.lists.batch_subscribe(settings.LIST_ID, batch, double_optin=False, update_existing=True)
