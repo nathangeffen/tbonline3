@@ -10,7 +10,7 @@ except ImportError:
     COMMENTS_APP = "CommentRecaptcha"
 
 
-DEBUG = True
+DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
 
