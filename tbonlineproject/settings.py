@@ -17,7 +17,6 @@ TEMPLATE_DEBUG = DEBUG
 SITE_ROOT = os.path.dirname(os.path.realpath(__file__))
 
 
-SECRET_KEY = "abcde"
 ADMINS = (
           ('Administrator', 'info@tbonline.info'),
 )
@@ -200,7 +199,8 @@ ACCOUNT_ACTIVATION_DAYS = 2
 LOGIN_REDIRECT_URL = '/'
 
 HAYSTACK_SITECONF = 'tbonlineproject.search_sites'
-HAYSTACK_SEARCH_ENGINE = 'xapian'
+#HAYSTACK_SEARCH_ENGINE = 'xapian'
+HAYSTACK_SEARCH_ENGINE = 'simple'
 HAYSTACK_WHOOSH_PATH = os.path.join(SITE_ROOT, 'whoosh_search_index')
 HAYSTACK_XAPIAN_PATH = os.path.join(SITE_ROOT, 'xapian_search_index')
 
