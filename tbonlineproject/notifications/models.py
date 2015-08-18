@@ -76,7 +76,7 @@ class Notification(models.Model):
 
                 mailchip_client = get_mailchimp_api()
 
-                mailchip_client.lists.subscribe(settings.LIST_ID, {'email': user.email})
+                mailchip_client.lists.subscribe(settings.LIST_ID, {'email': user.email}, update_existing=False)
 
                 Recipient.objects.create(notification=self, user=user)
             except IntegrityError:
