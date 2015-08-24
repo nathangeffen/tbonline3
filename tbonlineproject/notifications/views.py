@@ -5,7 +5,7 @@ from django.contrib import messages
 from notifications.models import CommentNotification, PostNotification, AlreadyNotifiedError
 
 
-def notify(request, NotificationType, name,
+def notify(email, NotificationType, name,
            login_msg=_('You need to login to receive notifications.'),
            success_msg=_("You will receive emails alerting you to new posts. But first you must confirm your subscription via email."),
            already_msg=_("You already receive notifications for new posts"),
@@ -14,21 +14,23 @@ def notify(request, NotificationType, name,
 
     '''
     
-    if not request.user.is_authenticated():
-        messages.warning(request, login_msg)    
+    # if not request.user.is_authenticated():
+    #     messages.warning(request, login_msg)
 
     try:
         c = NotificationType()
-        c.add_user(name, request.user, *args)
-        messages.info(request, success_msg)
+        c.add_user(name, email, *args)
+        # messages.info(request, success_msg)
     except AlreadyNotifiedError:
-        messages.warning(request, already_msg)
+        pass
+        # messages.warning(request, already_msg)
     except (ValueError, KeyError):
-        messages.warning(request, _("An unexpected error has occurred in "
-                                "the notification system"))
+        pass
+        # messages.warning(request, _("An unexpected error has occurred in "
+        #                         "the notification system"))
  
     try:
-        return HttpResponseRedirect(request.GET['next'])
+        return HttpResponseRedirect("/")
     except:
         raise Http404    
     
@@ -40,10 +42,11 @@ def notify_post(request):
     '''
     try:
         name = request.POST['name']
+        email = request.POST['recipient_email']
     except:
         name = 'post'
     
-    return notify(request, PostNotification, name)
+    return notify(email, PostNotification, name)
 
 def notify_comment(request):
     '''Process notification request, typically after user submits form requesting to be
@@ -69,19 +72,20 @@ def remove_notification(request, NotificationType, name,
                         already_msg=_('You do not get emailed notifications of new posts.'), 
                         *args):
 
-    if not request.user.is_authenticated:
-        messages.warning(request, login_msg)    
-    else:
+    # if not request.user.is_authenticated:
+    #     messages.warning(request, login_msg)
+    # else:
+    try:
         try:
-            try:
-                notification = NotificationType.objects.get(name=name)
-            except:
-                notification = NotificationType()
-
-            notification.remove_user(request.user, *args)
-            messages.info(request, success_msg)        
+            notification = NotificationType.objects.get(name=name)
         except:
-            messages.info(request, already_msg)
+            notification = NotificationType()
+
+        notification.remove_user(request.user, *args)
+        # messages.info(request, success_msg)
+    except:
+        pass
+        # messages.info(request, already_msg)
 
     try:     
         return HttpResponseRedirect(request.GET['next'])

@@ -51,7 +51,7 @@ class Notification(models.Model):
 
     objects = NotificationManager()
 
-    def add_user(self, name, user, NotificationClass=None):
+    def add_user(self, name, email, NotificationClass=None):
         # Get notification. If it does not exist add it.
         
         if not NotificationClass:
@@ -73,9 +73,9 @@ class Notification(models.Model):
             try:
                 mailchip_client = get_mailchimp_api()
 
-                mailchip_client.lists.subscribe(settings.LIST_ID, {'email': user.email}, update_existing=True)
+                mailchip_client.lists.subscribe(settings.LIST_ID, {'email': email}, update_existing=True)
 
-                Recipient.objects.create(notification=self, user=user)
+                # Recipient.objects.create(notification=self, user=user)
             except IntegrityError:
                 raise AlreadyNotifiedError(ugettext('%s already gets notified of new comments on this item.' % user))
 
@@ -125,8 +125,8 @@ class Recipient(models.Model):
 
 class PostNotification(Notification):
 
-    def add_user(self, name, user, *args):
-        return super(PostNotification, self).add_user(name, user, PostNotification)
+    def add_user(self, name, email, *args):
+        return super(PostNotification, self).add_user(name, email, PostNotification)
     
     def querydef(self):
         return BasicPost.objects.published().\
