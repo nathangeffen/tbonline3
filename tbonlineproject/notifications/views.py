@@ -48,6 +48,7 @@ def notify_post(request):
     
     return notify(email, PostNotification, name)
 
+
 def notify_comment(request):
     '''Process notification request, typically after user submits form requesting to be
     notified of new comments on a post. 
@@ -92,6 +93,7 @@ def remove_notification(request, NotificationType, name,
     except:
         raise Http404    
 
+
 def remove_post_notification(request):
     try:
         name = request.POST['name']
@@ -99,6 +101,7 @@ def remove_post_notification(request):
         name = 'post'
         
     return remove_notification(request, PostNotification, name)
+
 
 def remove_comment_notification(request):
     try:

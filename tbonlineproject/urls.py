@@ -23,7 +23,7 @@ sitemaps = {
 
 urlpatterns = patterns('',
     # Examples:
-    url(r'^$', PublishedFrontPagePostsView.as_view(template_name = 'index.html'), 
+    url(r'^$', PublishedFrontPagePostsView.as_view(template_name='index.html'),
         name='home'),
     (r'^archive/', include('archive.urls')),
     (r'^posts/', include('post.urls')),

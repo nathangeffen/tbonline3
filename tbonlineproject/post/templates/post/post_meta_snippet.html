@@ -14,10 +14,10 @@
     {% trans "Published: " %} {{ post.date_published }}&middot;
     {% trans "Tags" %}:
         {% for taggeditem in post.tags.all %}
-           <a href="/tags/{{ taggeditem.tag.name|urlencode }}">{{ taggeditem.tag }}</a>{% if not forloop.last %}, {% else %}&middot;{% endif %}
+           <a href="/tags/{{ taggeditem.tag.name|urlencode }}">{{ taggeditem.tag }}</a>{% if not forloop.last %}, {% else %}{# &middot; #}{% endif %}
         {% empty %}
-            {% trans "None" %}&middot;
+            {% trans "None" %}{# &middot; #}
         {% endfor %}
-    {% get_comment_count for post as comment_count %}
-    <a href="{{ post.get_absolute_url }}#comments">{{comment_count}} {% trans "comment" %}{{ comment_count|pluralize }}</a>
+{#    {% get_comment_count for post as comment_count %}#}
+{#    <a href="{{ post.get_absolute_url }}#comments">{{comment_count}} {% trans "comment" %}{{ comment_count|pluralize }}</a>#}
 {% endif %}
