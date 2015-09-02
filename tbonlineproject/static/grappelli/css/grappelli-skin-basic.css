@@ -422,8 +422,6 @@ ul.messagelist.error li {
 .row {
     border-top: 1px solid #fff;
     border-bottom: 1px solid #e0e0e0;
-    border-left: 0;
-    border-right: 0;
 }
 .row.first, 
 .row:first-child, 
@@ -496,7 +494,6 @@ fieldset.module .cell.last + fieldset.module .cell {
 .module.table .module.thead .th, 
 .module.table .module.thead .td {
     border-top: 0;
-    border-bottom: 0;
     background: none;
 }
 .module.tbody .th, 
@@ -837,16 +834,6 @@ ul.pagination li.separator span {
 
 
 
-/*  Tooltips
------------------------------------------------------------------------------------------------------- */
-
-.module.search .tooltip .tooltip-content {
-    border: 1px solid #ccc;
-    background: #fff;
-}
-
-
-
 /*  TOOLS
 –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– */
 
@@ -1016,8 +1003,7 @@ input[type=submit], input[type=reset], input[type=button], button {
 /*  Buttons & Buttonlike Links
 ------------------------------------------------------------------------------------------------------ */
 
-.submit-row input[type=submit], 
-.submit-row a.submit-link:link, .submit-row a.submit-link:visited {
+.submit-row input[type=submit] {
     border: 1px solid #267c99;
 }
 
@@ -1042,14 +1028,11 @@ input[type=submit],
     background: #666;
 }
 
-input[type=submit], 
-.submit-row a.submit-link:hover, .submit-row a.submit-link:active {
-    color: #fff;
+input[type=submit] {
     background: #309bbf;
 }
 input[type=submit]:hover, 
 #bookmark-add-cancel:hover, 
-.submit-row a.submit-link:hover, .submit-row a.submit-link:active, 
 .submit-row a.delete-link:hover, .submit-row a.delete-link:active, 
 .submit-row a.cancel-link:hover, .submit-row a.cancel-link:active, 
 .submit-row input.cancel {
