@@ -1,4 +1,5 @@
 from django.http import HttpResponseRedirect, Http404
+from django.shortcuts import render
 from django.utils.translation import ugettext as _
 from django.contrib import messages
 
@@ -10,43 +11,54 @@ def notify(email, NotificationType, name,
            success_msg=_("You will receive emails alerting you to new posts. But first you must confirm your subscription via email."),
            already_msg=_("You already receive notifications for new posts"),
            *args):
-    '''Common method for processing different types of notification view. 
-
     '''
-    
-    # if not request.user.is_authenticated():
-    #     messages.warning(request, login_msg)
+    Common method for processing different types of notification view.
+    '''
+    if not email:
+        return dict(
+            success=False,
+            error=True
+        )
 
     try:
         c = NotificationType()
         c.add_user(name, email, *args)
         # messages.info(request, success_msg)
     except AlreadyNotifiedError:
-        pass
-        # messages.warning(request, already_msg)
+        return dict(
+            success=False,
+            error=False
+        )
     except (ValueError, KeyError):
-        pass
-        # messages.warning(request, _("An unexpected error has occurred in "
-        #                         "the notification system"))
- 
-    try:
-        return HttpResponseRedirect("/")
-    except:
-        raise Http404    
-    
+        return dict(
+            success=False,
+            error=True
+        )
+
+    return dict(
+        success=True,
+        error=False
+    )
 
 def notify_post(request):
     '''Process notification request, typically after user submits form requesting to be
     notified of new comments on a post. 
     
     '''
+    print request.POST
     try:
         name = request.POST['name']
         email = request.POST['recipient_email']
     except:
         name = 'post'
-    
-    return notify(email, PostNotification, name)
+
+    notify_result = notify(email, PostNotification, name)
+
+    return render(
+        request,
+        template_name='notification_confirmation.html',
+        dictionary=notify_result
+    )
 
 
 def notify_comment(request):

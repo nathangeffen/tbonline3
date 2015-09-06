@@ -3,30 +3,11 @@
 {% load notification_tags %}
 
 <div id="login">
-{#{% if user.is_authenticated %}#}
-{#    {% is_notified "post" as notified %}#}
-{#    {% if not notified %}#}
-{#        <form name="notify" action="{% url 'notify_post'  %}?next={{request.path}}" method="post">{% csrf_token %}#}
-{#        <input type="hidden" name="name" value="{{notification_name}}" id="id_name" />#}
-{#        <input type="submit" value="{% trans "Email" %}"/>#}
-{#        {% trans "me weekly about new articles." %}#}
-{#        </form>#}
-{#    {% else %}#}
-{#        <form name="notify" action="{% url 'remove_post_notification'  %}?next={{request.path}}" method="post">{% csrf_token %}#}
-{#        <input type="hidden" name="name" value="{{notification_name}}" id="id_name" />#}
-{#        <input type="submit" value="{% trans "Unsubscribe" %}"/>#}
-{#        </form>#}
-{#    {% endif %}#}
-{#{% else %}#}
-{#	<p>#}
-{#        <a href="{% url 'registration.views.register' %}?next={{post.get_absolute_url}}">{% trans "Subscribe" %}</a>#}
-{#        {% trans "to weekly news digest" %}#}
-{#    </p>#}
-    <form name="notify" action="{% url 'notify_post'  %}?next={{request.path}}" method="post">{% csrf_token %}
-        <input type="hidden" name="name" value="{{notification_name}}" id="id_name" />
+    <form name="notify" action="{% url 'notify_post'  %}?next={{request.path}}" method="post">
+        {% csrf_token %}
+        <p>{% trans "To subscribe to the weekly newsletter of new posts, enter your email here:" %}</p>
+        <input type="hidden" name="name" value="post" id="id_name" />
         <input type="text" name="recipient_email" /><br/>
         <input type="submit" value="{% trans "Subscribe" %}"/>
-        {% trans "me to the weekly newsletter of new posts." %}
     </form>
-{#{% endif %}#}
 </div>
