@@ -1,5 +1,3 @@
-/**
- * GRAPPELLI ACTIONS.JS
- * see actions.min.js
- * 
- */
+// dropped
+// not used in grappelli
+// kept this file to prevent 404

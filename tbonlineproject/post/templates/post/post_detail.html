@@ -13,7 +13,13 @@
 {% endblock %}
 
 {% block sidebar-1 %}
-    
+
+    {% if comments_allowed != 'closed' %}
+        {% with notification_name="comment" notification_app_label='post' notification_model=post.get_class_name.lower notification_pk=post.pk %}
+            {% include 'notifications/notify_comments_snippet.html' %}
+        {% endwith %}
+    {% endif %}
+
     <div id="post-meta">
     {% include 'post/category_snippet.html' %}
     {% include 'post/byline_snippet.html' %}
@@ -23,13 +29,6 @@
     {% include 'post/addtoany_snippet.html' %}    
     </div>
     
-    {% if comments_allowed != 'closed' %}
-        {% with notification_name="comment" notification_app_label='post' notification_model=post.get_class_name.lower notification_pk=post.pk %}
-            {% include 'notifications/notify_comments_snippet.html' %}
-        {% endwith %} 
-    {% endif %}
-    
-
     {% with post as search_object %}
         {% include 'relatedcontent/list_related_content_snippet.html' %}
     {% endwith %}

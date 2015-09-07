@@ -23,9 +23,9 @@ class OrderedCreditInline(generic.GenericTabularInline):
 
     extra = 0
     
-    formfield_overrides = {
-        PositiveIntegerField: {'widget': HiddenInput},
-    }    
+    # formfield_overrides = {
+    #     PositiveIntegerField: {'widget': HiddenInput},
+    # }
     
     sortable_field_name = 'position'
 

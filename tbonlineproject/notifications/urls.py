@@ -4,7 +4,7 @@ urlpatterns = patterns('notifications.views',
     url(r'notify_comment/$', 'notify_comment', name='notify_comment'),
     
     url(r'notify_post/$', 'notify_post', name='notify_post'),
-        
+
     url(r'remove_post_notification/$', 'remove_post_notification', 
         name='remove_post_notification'),
                        

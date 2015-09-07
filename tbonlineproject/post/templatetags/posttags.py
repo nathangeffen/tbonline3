@@ -128,8 +128,12 @@ def get_comments(post, editors_choice):
     content_type = ContentType.objects.get(app_label="post",
                                            model=model_name)
 
-    post_comments = Comment.objects.filter(content_type=content_type,
-                                           object_pk=post.id)
+    post_comments = Comment.objects.filter(
+        content_type=content_type,
+        object_pk=post.id
+    ).order_by(
+        '-submit_date'
+    )
 
     choice = EditorChoice.objects.filter(editors_choice=True)\
                      .values('comment')
