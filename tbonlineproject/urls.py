@@ -3,6 +3,8 @@ from django.conf import settings
 from django.contrib import admin
 from django.contrib.sitemaps import FlatPageSitemap
 
+from filebrowser.sites import site as filebrowser_site
+
 from contact_form.views import contact_form
 
 from post.views import PublishedFrontPagePostsView
@@ -42,7 +44,7 @@ urlpatterns = patterns('',
     (r'^sitemap\.xml$', 'django.contrib.sitemaps.views.sitemap', {'sitemaps': sitemaps}),
         
     (r'^grappelli/', include('grappelli.urls')),
-    (r'^admin/filebrowser/', include('filebrowser.urls')),
+    (r'^admin/filebrowser/', include(filebrowser_site.urls)),
     (r'^profile/', include('userprofiles.urls')),
     
 

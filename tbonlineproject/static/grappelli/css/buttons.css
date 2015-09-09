@@ -19,6 +19,7 @@ input[type=submit], input[type=reset], input[type=button], button {
     }
 }
 
+.submit-row a.submit-link, 
 .submit-row a.delete-link, 
 .submit-row a.cancel-link {
     display: block;
@@ -264,6 +265,12 @@ a.related-lookup:link, a.related-lookup:visited {
 a.related-lookup:hover, a.related-lookup:active {
     background-image: url('../img/icons/icon-related-lookup-hover.png');
 }
+div.autocomplete-wrapper-m2m a.related-lookup:link, div.autocomplete-wrapper-m2m a.related-lookup:visited {
+    background-image: url('../img/icons/icon-related-lookup-m2m.png');
+}
+div.autocomplete-wrapper-m2m a.related-lookup:hover, div.autocomplete-wrapper-m2m a.related-lookup:active {
+    background-image: url('../img/icons/icon-related-lookup-m2m-hover.png');
+}
 
 input[disabled] + a.fb_show {
     background-image: url('../img/icons/icon-fb-show-hover.png') !important;
@@ -333,21 +340,24 @@ a.add-another:hover, a.add-another:active {
 ------------------------------------------------------------------------------------------------------ */
 
 img[src$="img/admin/icon-unknown.gif"] {
-    padding: 5px;
-    width: 0;
-    height: 0;
+    padding: 0;
+    width: 15px;
+    height: 15px;
+    color: transparent;
     background: url('../img/icons/icon-unknown.png') 0 50% no-repeat;
 }
 img[src$="img/admin/icon-no.gif"] {
-    padding: 5px;
-    width: 0;
-    height: 0;
+    padding: 0;
+    width: 15px;
+    height: 15px;
+    color: transparent;
     background: url('../img/icons/icon-no.png') 0 50% no-repeat;
 }
 img[src$="img/admin/icon-yes.gif"] {
-    padding: 5px;
-    width: 0;
-    height: 0;
+    padding: 0;
+    width: 15px;
+    height: 15px;
+    color: transparent;
     background: url('../img/icons/icon-yes.png') 0 50% no-repeat;
 }
 
