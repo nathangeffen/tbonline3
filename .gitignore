@@ -3,3 +3,4 @@
 tbonline.sqlite
 tbonline_local.sqlite
 local_settings.py
+tbonlineproject/static/
