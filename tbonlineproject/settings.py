@@ -166,7 +166,6 @@ INSTALLED_APPS = (
     'faq',
     'registration',
     'tagging',
-    'haystack',    
     'copyright',
     'credit',
     'relatedcontent',
@@ -199,9 +198,8 @@ ACCOUNT_ACTIVATION_DAYS = 2
 LOGIN_REDIRECT_URL = '/'
 
 HAYSTACK_SITECONF = 'tbonlineproject.search_sites'
-#HAYSTACK_SEARCH_ENGINE = 'xapian'
-HAYSTACK_SEARCH_ENGINE = 'simple'
-HAYSTACK_WHOOSH_PATH = os.path.join(SITE_ROOT, 'whoosh_search_index')
+HAYSTACK_SEARCH_ENGINE = 'xapian'
+#HAYSTACK_WHOOSH_PATH = os.path.join(SITE_ROOT, 'whoosh_search_index')
 HAYSTACK_XAPIAN_PATH = os.path.join(SITE_ROOT, 'xapian_search_index')
 
 RECAPTCHA_PUBLIC_KEY = '6LeMQsoSAAAAAP5BQhOF0kuPCPvtwwu_9AYshPMA'

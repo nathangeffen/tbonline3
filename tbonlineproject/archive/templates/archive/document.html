@@ -16,7 +16,7 @@
     <span class="document-attribute">{% trans "Get document: " %}</span>
     
     {% if document.file %}
-        <a href="/static/{{document.file}}">{% trans "Download from this site" %}</a> |
+        <a href="{{ MEDIA_URL }}{{document.file}}">{% trans "Download from this site" %}</a> |
     {% endif %}
     
     
