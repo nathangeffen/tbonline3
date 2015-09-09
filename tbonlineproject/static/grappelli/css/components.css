@@ -22,13 +22,19 @@ fieldset.module label + p {
     margin: 0 0 7px;
 }
 
+.form-container .module {
+    min-width: 938px;
+}
 #changelist .span-flexible .module + ul.submit-row {
     margin-top: 10px;
 }
-.module:empty {
-    display: none;
-}
-
+/* Empty breaks in Chrome 11+: Elements are not displayed initially even if they are not empty */
+/*.module:empty {
+    padding: 0;
+    height: 0;
+    border: 0;
+    visibility: hidden;
+}*/
 
 /*  Nested Modules Basics ......................................... */
 
@@ -45,6 +51,9 @@ fieldset.module label + p {
 .group {
     margin: 0 -4px 7px;
     padding: 2px;
+}
+.form-container .group {
+    min-width: 940px;
 }
 
 
@@ -301,7 +310,7 @@ h2 + * + * + .module.table {
     float: left;
     width: 366px;
 }
-.stacked .selector-available, .stacked .selector-chosen {
+.selector.stacked .selector-available, .selector.stacked .selector-chosen {
     width: 756px;
 }
 .selector h2, .inline-group .selector h2, 
@@ -388,16 +397,16 @@ a.selector-remove:link, a.selector-remove:visited {
 a.selector-remove:hover, a.selector-remove:active {
     background-image: url('../img/icons/icon-selector_remove-m2m_horizontal-hover.png');
 }
-.stacked a.selector-add:link, .stacked a.selector-add:visited {
+.selector.stacked a.selector-add:link, .selector.stacked a.selector-add:visited {
     background-image: url('../img/icons/icon-selector_add-m2m_vertical.png');
 }
-.stacked a.selector-add:hover, .stacked a.selector-add:active {
+.selector.stacked a.selector-add:hover, .selector.stacked a.selector-add:active {
     background-image: url('../img/icons/icon-selector_add-m2m_vertical-hover.png');
 }
-.stacked a.selector-remove:link, .stacked a.selector-remove:visited {
+.selector.stacked a.selector-remove:link, .selector.stacked a.selector-remove:visited {
     background-image: url('../img/icons/icon-selector_remove-m2m_vertical.png');
 }
-.stacked a.selector-remove:hover, .stacked a.selector-remove:active {
+.selector.stacked a.selector-remove:hover, .selector.stacked a.selector-remove:active {
     background-image: url('../img/icons/icon-selector_remove-m2m_vertical-hover.png');
 }
 a.selector-chooseall, a.selector-clearall {
@@ -492,10 +501,9 @@ ul.actions {
 ul.actions li {
     position: relative;
     float: left;
-    margin-left: 20px;
 }
-ul.actions li.change-link {
-    width: 56px;
+ul.actions li + li {
+    margin-left: 20px;
 }
 ul.actions li a {
     padding-left: 15px;
@@ -555,6 +563,29 @@ ul.actions li a {
 .module.filter .pulldown-container {
     position: absolute;
     width: inherit;
+}
+
+.module.search .tooltip {
+    position: absolute;
+}
+.module.search .tooltip.search-fields {
+    top: 25px;
+}
+.module.search .tooltip .tooltip-pointer {
+    position: relative;
+    z-index: 1000;
+    display: block;
+    width: 30px;
+    height: 8px;
+    background: transparent url('../img/backgrounds/tooltip-pointer.png') 10px 100% no-repeat scroll;
+}
+.module.search .tooltip .tooltip-content {
+    position: relative;
+    z-index: 990;
+    top: -1px;
+    padding: 8px 10px;
+    font-size: 11px;
+    line-height: 15px;
 }
 
 a.button.toggle-filters {
@@ -722,13 +753,12 @@ ul.pagination li.showall {
 /*  Module Changelist Actions
 ------------------------------------------------------------------------------------------------------ */
 
-.module.changelist-actions {
-    display: none;
+.changelist-actions {
     position: relative;
     margin-bottom: 0;
 }
 
-.module.changelist-actions ul {
+.changelist-actions ul {
     position: relative;
     float: left;
     display: inline;
@@ -737,60 +767,37 @@ ul.pagination li.showall {
     font-weight: bold;
     margin: -1px 10px -1px 0;
 }
-.module.changelist-actions ul li {
+.changelist-actions ul li {
     position: relative;
     float: left;
     display: block;
     margin-right: 3px;
 }
-.module.changelist-actions ul li.all {
-    margin-right: 10px;
-}
 
-.module.changelist-actions ul a, 
-.module.changelist-actions ul span {
+.changelist-actions ul a, 
+.changelist-actions ul span {
     display: inline-block;
     padding: 4px 8px 3px;
     font-size: 11px;
     font-weight: bold;
-    border: 1px solid;
 }
-.module.changelist-actions ul span span {
+.changelist-actions ul span span {
     padding: 0;
 }
 
-.module.changelist-actions #action-toggle {
+.changelist-actions #action-toggle {
     display: none;
 }
-.module.changelist-actions select {
+.changelist-actions select {
     float: left;
     margin: 0 10px 0 0;
     width: 278px;
 }
 
-.module.changelist-actions li.all,
-.module.changelist-actions li.clear-selection,
-.module.changelist-actions li.question {
+.changelist-actions li.all,
+.changelist-actions li.clear-selection,
+.changelist-actions li.question {
    display: none;
-}
-
-
-
-/*  Module Footer
------------------------------------------------------------------------------------------------------- */
-
-.module.footer {
-    position: fixed;
-    z-index: 1000;
-    bottom: 0;
-    margin: 0 -20px;
-    padding: 12px 20px;
-    width: 100%;
-    opacity: 1;
-    box-sizing: border-box; -moz-box-sizing: border-box; -webkit-box-sizing: border-box;
-}
-.module.footer.changelist-actions {
-    padding: 15px 20px 14px;
 }
 
 
@@ -822,6 +829,36 @@ ul.submit-row li.left {
 }
 ul.submit-row li.left:first-child {
     margin-left: 0;
+}
+
+
+
+/*  Module Footer
+------------------------------------------------------------------------------------------------------ */
+
+.module.footer {
+    position: fixed;
+    z-index: 1000;
+    bottom: 0;
+    margin: 0 -20px;
+    padding: 12px 20px;
+    min-width: 100px;
+    width: 100%;
+    opacity: 1;
+    box-sizing: border-box; -moz-box-sizing: border-box; -webkit-box-sizing: border-box;
+}
+.module.footer .changelist-actions {
+    position: relative;
+    float: left;
+    clear: none;
+    width: 75%;
+    padding: 2px 0 0;
+}
+.change-list .module.footer ul.submit-row {
+    position: relative;
+    float: right;
+    clear: none;
+    width: 25%;
 }
 
 
