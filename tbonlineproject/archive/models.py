@@ -137,7 +137,7 @@ class Document(models.Model):
             if self.url: 
                 citation += self.url + u'. '
             elif self.file: 
-                citation += "http://" + unicode(Site.objects.get_current()) + '/static/' + unicode(self.file)
+                citation += "http://" + unicode(Site.objects.get_current()) + '/media/' + unicode(self.file)
             else:
                 citation += "http://" + unicode(Site.objects.get_current()) + self.get_absolute_url()
 
