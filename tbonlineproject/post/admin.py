@@ -80,7 +80,7 @@ class BasicPostAdmin(admin.ModelAdmin):
 
     
     class Media:
-        css = enhancedtextcss 
+        css = enhancedtextcss
         js = enhancedtextjs
 
 class PostWithSimpleImageAdmin(AdminImageMixin, BasicPostAdmin):
