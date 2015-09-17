@@ -28,31 +28,31 @@ from enhancedtext.admin import enhancedtextcss, enhancedtextjs
 
 post_fieldsets = (
         (_('Title'), {
-            'classes' : ['collapse open'],    
+            'classes' : ['grp-collapse grp-open'],
             'fields': ('title', 'subtitle','slug','date_published'),
         }),
         
         (_('Content'), {
-         'classes' : ['collapse open',],
+         'classes' : ['grp-collapse grp-open',],
          'fields': ('body',)
         }),
         (_('Display features'), {
-         'classes' : ['collapse open',],
+         'classes' : ['grp-collapse grp-open',],
          'fields': ('homepage','sticky', 'category', 'allow_comments', 'copyright')
         }),
                   
         (_('Teaser. introduction and pullout text'), {
-         'classes' : ['collapse closed',],
+         'classes' : ['grp-collapse grp-closed',],
          'fields': ('teaser','introduction', 'pullout_text',)
         }),
                  
         (_('HTML templates'), {
-         'classes' : ['collapse closed',],
+         'classes' : ['grp-collapse grp-closed',],
          'fields': (('detail_post_template','list_post_template',),
                     ('detail_post_css_classes','list_post_css_classes',))
         }),
         (_('Sites on which this post is published'), {
-         'classes' : ['collapse closed',],
+         'classes' : ['grp-collapse grp-closed',],
          'fields' : ('sites',)
         })        
     )
@@ -86,7 +86,7 @@ class BasicPostAdmin(admin.ModelAdmin):
 class PostWithSimpleImageAdmin(AdminImageMixin, BasicPostAdmin):
     fieldsets = post_fieldsets[0:3] + \
         ((_('Image'), {
-         'classes' : ['collapse open',],
+         'classes' : ['grp-collapse grp-open',],
          'fields': ('image', 'caption', 'url',)
         }),) + \
         post_fieldsets[3:]
@@ -101,7 +101,7 @@ class PostWithImageAdmin(BasicPostAdmin):
 
     fieldsets = post_fieldsets[0:3] + \
         ((_('Image'), {
-         'classes' : ['collapse open',],
+         'classes' : ['grp-collapse grp-open',],
          'fields': ('image',)
         }),) + \
         post_fieldsets[3:]
@@ -116,7 +116,7 @@ class PostWithSlideshowAdmin(BasicPostAdmin):
 
     fieldsets = post_fieldsets[0:3] + \
         ((_('Gallery to use for slideshow'), {
-         'classes' : ['collapse open',],
+         'classes' : ['grp-collapse grp-open',],
          'fields': ('gallery', 'slideshow_options')
         }),) + \
         post_fieldsets[3:]
@@ -125,7 +125,7 @@ class PostWithEmbeddedObjectAdmin(BasicPostAdmin):
     
     fieldsets = post_fieldsets[0:3] + \
         ((_('Embedded object'), {
-         'classes' : ['collapse open',],
+         'classes' : ['grp-collapse grp-open',],
          'fields': ('list_post_embedded_html', 'detail_post_embedded_html')
         }),) + \
         post_fieldsets[3:]
