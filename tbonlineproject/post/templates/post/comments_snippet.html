@@ -19,6 +19,8 @@
 </style>
 {% endblock %}
 
+{% comment %}
+
 {% get_comment_count for post as comment_count %}
 {% if comment_count > 0 %}
 <p class="comment-meta">Comments in chronological order</p>
@@ -58,6 +60,7 @@
 </script>
 <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
 
+[% endcomment %}
 
 {##}
 {#{% if comments_allowed == 'true' %}#}
