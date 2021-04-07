@@ -63,8 +63,7 @@
     {% endif %}
 
     <li>
-        {% url 'contact' as contact_url  %}
-        <a href="{{ contact_url }}"{% if request.path == contact_url %}class="current"{% endif %}>
+        <a href="/contact/"{% if request.path == "/contact/" %}class="current"{% endif %}>
         {% trans "Contact" %}
         </a>
     </li>

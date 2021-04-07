@@ -120,13 +120,13 @@ TEMPLATE_LOADERS = (
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',    
+    'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
-    'accounts.middleware.AutoLogoutMiddleware',    
-    'accounts.middleware.WebfactionFixMiddleware',    
-    )  
+    'accounts.middleware.AutoLogoutMiddleware',
+    'accounts.middleware.WebfactionFixMiddleware',
+    )
 
 
 ROOT_URLCONF = 'tbonlineproject.urls'
@@ -142,9 +142,9 @@ TEMPLATE_DIRS = (
     os.path.join(SITE_ROOT, 'feeder/templates'),
     os.path.join(SITE_ROOT, 'copyright/templates'),
     os.path.join(SITE_ROOT, 'notifications/templates'),
-    os.path.join(SITE_ROOT, 'tweets/templates'),  
+    os.path.join(SITE_ROOT, 'tweets/templates'),
 )
-                 
+
 INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -225,7 +225,7 @@ TEMPLATE_CONTEXT_PROCESSORS = ("django.contrib.auth.context_processors.auth",
                                "django.core.context_processors.request",
                                "django.contrib.messages.context_processors.messages",
                                "post.context_processors.current_site")
- 
+
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
@@ -251,6 +251,8 @@ LOGGING = {
     }
 }
 
+AUTH_PROFILE_MODULE = 'auth.User'
+
 # Mailchimp settings
 MAILCHIMP_KEY = 'ba62b7f0b188051d29344063caba744b-us11'
 LIST_ID = 'ae7bcd30bb'
@@ -260,8 +262,8 @@ try:
     from local_settings import *
 except ImportError:
     pass
-else: 
+else:
     PROJECT_TEMPLATE_DIR = getattr(local_settings, "PROJECT_TEMPLATE_DIR", None)
-    
+
     if PROJECT_TEMPLATE_DIR:
         TEMPLATE_DIRS =  (PROJECT_TEMPLATE_DIR,) + TEMPLATE_DIRS

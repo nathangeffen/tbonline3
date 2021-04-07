@@ -20,7 +20,7 @@ sitemaps = {
     'flatpages': FlatPageSitemap,
     'post': PostSitemap,
     'story': StorySitemap,
-    'image': ImageSitemap 
+    'image': ImageSitemap
 }
 
 urlpatterns = patterns('',
@@ -37,16 +37,16 @@ urlpatterns = patterns('',
     (r'^faq/', include('faq.urls')),
     (r'^search/', include('haystack.urls')),
     (r'^notifications/', include('notifications.urls')),
-    (r'^tags/', include('tagviews.urls')),    
+    (r'^tags/', include('tagviews.urls')),
     (r'^tb/', include('tb.urls')),
-    url(r'^contact/$', contact_form, {'form_class': EnhancedContactForm}, name='contact'),                            
-    (r'^contact/', include('contact_form.urls')),
+    # url(r'^contact/$', contact_form, {'form_class': EnhancedContactForm}, name='contact'),
+    # (r'^contact/', include('contact_form.urls')),
     (r'^sitemap\.xml$', 'django.contrib.sitemaps.views.sitemap', {'sitemaps': sitemaps}),
-        
+
     (r'^grappelli/', include('grappelli.urls')),
     (r'^admin/filebrowser/', include(filebrowser_site.urls)),
     (r'^profile/', include('userprofiles.urls')),
-    
+
 
 
     # Uncomment the admin/doc line below to enable admin documentation:
@@ -64,4 +64,3 @@ if settings.DEBUG:
     )
     from django.contrib.staticfiles.urls import staticfiles_urlpatterns
     urlpatterns += staticfiles_urlpatterns()
-
